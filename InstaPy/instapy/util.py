@@ -71,7 +71,6 @@ next_screenshot = 1
 def is_private_profile(browser, logger, following=True):
     """
     Verify id account is Private
-
     :param browser: The selenium webdriver instance
     :param logger: the logger instance
     :param following: Not accessed
@@ -971,11 +970,9 @@ def scroll_bottom(browser, element, range_int):
 def scroll_down(browser, y: int = 50):
     """
     Scroll down the page by 50 pixels
-
     This is intended mainly for accept_follow_requests(), since user could
     have several request to be accepted. By default only 10 users are shown,
     but InstaPy user could requested to accept more than 10.
-
     :param y: number of pixels to be moved
     """
 
@@ -994,13 +991,11 @@ def click_element(browser, element, tryNum=0):
     2. element.send_keys("\n")
     3. browser.execute_script("document.getElementsByClassName('" +
     element.get_attribute("class") + "')[0].click()")
-
     I'm guessing all three have their advantages/disadvantages
     Before committing over this code, you MUST justify your change
     and potentially adding an 'if' statement that applies to your
     specific case. See the following issue for more details
     https://github.com/timgrossmann/InstaPy/issues/1232
-
     explaination of the following recursive function:
       we will attempt to click the element given, if an error is thrown
       we know something is wrong (element not in view, element doesn't
@@ -1078,9 +1073,7 @@ def format_number(number):
     """
     Format number. Remove the unused comma. Replace the concatenation with
     relevant zeros. Remove the dot.
-
     :param number: str
-
     :return: int
     """
     formatted_num = number.replace(",", "")
@@ -1740,7 +1733,6 @@ def new_tab(browser):
 def explicit_wait(browser, track, ec_params, logger, timeout=35, notify=True):
     """
     Explicitly wait until expected condition validates
-
     :param browser: webdriver instance
     :param track: short name of the expected condition
     :param ec_params: expected condition specific parameters - [param1, param2]
@@ -1873,7 +1865,6 @@ def get_username_from_id(browser, user_id, logger):
     """  method using private API
     #logger.info("Trying to find the username from the given user ID by a
     quick API call")
-
     #req = requests.get(u"https://i.instagram.com/api/v1/users/{}/info/"
     #                   .format(user_id))
     #if req:
@@ -1888,10 +1879,8 @@ def get_username_from_id(browser, user_id, logger):
     # method using graphql 'Follow' endpoint
     logger.info("Trying to find the username from the given user ID "
                 "by using the GraphQL Follow endpoint")
-
     user_link_by_id = ("https://www.instagram.com/web/friendships/{}/follow/"
                        .format(user_id))
-
     web_address_navigator(browser, user_link_by_id)
     username = get_username(browser, "profile", logger)
     """
@@ -2005,10 +1994,9 @@ def click_visibly(browser, element):
 
     return True
 
-
 def get_action_delay(action):
     """ Get the delay time to sleep after doing actions """
-    defaults = {"like": 2, "comment": 2, "follow": 3, "unfollow": 10, "story": 3}
+    defaults = {"like": 3, "comment": 5, "follow": 5, "unfollow": 10, "story": 3}
     config = Settings.action_delays
 
     if (
@@ -2054,6 +2042,7 @@ def get_action_delay(action):
     if custom_delay < defaults[action] and config["safety_match"] is not False:
         return defaults[action]
 
+    print("The delay is: " + custom_delay)
     return custom_delay
 
 
@@ -2154,7 +2143,6 @@ def has_any_letters(text):
 def save_account_progress(browser, username, logger):
     """
     Check account current progress and update database
-
     Args:
         :browser: web driver
         :username: Account to be updated
@@ -2402,10 +2390,8 @@ def parse_cli_args():
     ```parser.add_argument("--is-debug",
                            default=False,
                            type=lambda x: (str(x).capitalize() == "True"))```
-
     So that, you can pass bool values explicitly from CLI,
     ```python quickstart.py --is-debug True```
-
     NOTE: This style is the easiest of it and currently not being used.
     """
 
@@ -2495,7 +2481,6 @@ def take_rotative_screenshot(browser, logfolder):
 def get_query_hash(browser, logger, edge_followed_by):
     """
     Load Instagram JS file and find query hash code
-
     :param browser: webdriver instance
     :param logger: the logger instance
     :param edge_followed_by: query hash flag, edge_followed_by or edge_follow
@@ -2540,7 +2525,6 @@ class CustomizedArgumentParser(ArgumentParser):
     """
      Subclass ArgumentParser in order to turn off
     the abbreviation matching on older pythons.
-
     `allow_abbrev` parameter was added by Python 3.5 to do it.
     Thanks to @paul.j3 - https://bugs.python.org/msg204678 for this solution.
     """
@@ -2550,7 +2534,6 @@ class CustomizedArgumentParser(ArgumentParser):
          Default of this method searches through all possible prefixes
         of the option string and all actions in the parser for possible
         interpretations.
-
         To view the original source of this method, running,
         ```
         import inspect; import argparse; inspect.getsourcefile(argparse)
